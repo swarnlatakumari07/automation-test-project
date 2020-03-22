@@ -63,7 +63,9 @@ public class PaymentPage {
             new Utils(driver).waitUntilWebElementIsVisible(opt_textbox).click();
             opt_textbox.sendKeys(cardDetails.getOtp());
             comfirmation_button.click();
-            //new Utils(driver).waitUntilWebElementIsVisible(success_msg);
+            Thread.sleep(5000);
+            driver.findElements(By.tagName("iframe")).size();
+            driver.switchTo().frame(0);
             return success_msg.getText().equalsIgnoreCase("Transaction successful");
         } else
             return card_details_error.size()>0;
