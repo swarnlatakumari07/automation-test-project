@@ -36,5 +36,8 @@ public class Utils {
 
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+    public Boolean waitUntilElementIsInvisible(final WebElement element){
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated((By) element));
+    }
 
 }
