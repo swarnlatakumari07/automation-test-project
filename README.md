@@ -12,7 +12,6 @@ The feature file that has all functionality requirements that the application mu
 - [Features](#features)
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
 - [Project Walkthough](#project-walk-through)
 
 ## Features
