@@ -1,6 +1,8 @@
 package org.automation.test.page.object;
 
+import org.automation.test.model.CardDetails;
 import org.automation.test.utils.Utils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +30,10 @@ public class PaymentPage {
     WebElement comfirmation_button;
     @FindBy(xpath = "//div[contains(@class,'error')]")
     List<WebElement> card_details_error;
+    @FindBy(xpath= "//div[@class='final-panel success']/div[contains(@class,'success text')]")
+    WebElement success_msg;
+    @FindBy(xpath = "//div[@class='text-button-main']/span[contains(text(),'Processing')]")
+    WebElement Laod_page;
 
     public PaymentPage(WebDriver driver) {
         this.driver = driver;
@@ -40,21 +46,25 @@ public class PaymentPage {
         element.click();
     }
 
-    public boolean enterCardDetails()throws Throwable {
+    public boolean enterCardDetails(CardDetails cardDetails)throws Throwable {
         WebElement card_num_txtbox = new Utils(driver).waitUntilWebElementIsVisible(card_number_textbox);
         card_num_txtbox.click();
-        card_num_txtbox.sendKeys("4911111111111113");
+        card_num_txtbox.sendKeys(cardDetails.getCardNumber());
         card_expiry_date.click();
-        card_expiry_date.sendKeys("0320");
+        card_expiry_date.sendKeys(cardDetails.getExpiryDate());
         card_cvv.click();
-        card_cvv.sendKeys("123");
+        card_cvv.sendKeys(cardDetails.getCvv());
         if (card_details_error.size() == 0) {
             pay_now_button.click();
-            Thread.sleep(2000);
+            int size = driver.findElements(By.tagName("iframe")).size();
+            //new Utils(driver).waitUntilElementIsInvisible(Laod_page);
+            Thread.sleep(7000);
+            driver.switchTo().frame(0);
             new Utils(driver).waitUntilWebElementIsVisible(opt_textbox).click();
-            opt_textbox.sendKeys(" ");
+            opt_textbox.sendKeys(cardDetails.getOtp());
             comfirmation_button.click();
-            return true;
+            //new Utils(driver).waitUntilWebElementIsVisible(success_msg);
+            return success_msg.getText().equalsIgnoreCase("Transaction successful");
         } else
             return card_details_error.size()>0;
     }
