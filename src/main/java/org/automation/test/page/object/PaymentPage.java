@@ -22,7 +22,7 @@ public class PaymentPage {
     WebElement card_expiry_date;
     @FindBy(xpath = "//input[@inputmode='numeric' and contains(@style,'cvv')]")
     WebElement card_cvv;
-    @FindBy(xpath = "//a[@class='button-main-content' and contains(@href,'#/')]")
+    @FindBy(xpath = "//a[@class='button-main-content' and contains(.,'Pay Now')]")
     WebElement pay_now_button;
     @FindBy(css = "input[type='password']")
     WebElement opt_textbox;
@@ -34,6 +34,8 @@ public class PaymentPage {
     WebElement success_msg;
     @FindBy(xpath = "//div[@class='text-button-main']/span[contains(text(),'Processing')]")
     WebElement Laod_page;
+    @FindBy(xpath="//div[@class='input-row']//input[@type='checkbox' and @name='promo']")
+    List<WebElement> promoCheckbox;
 
     public PaymentPage(WebDriver driver) {
         this.driver = driver;
@@ -45,6 +47,15 @@ public class PaymentPage {
         WebElement element = new Utils(driver).waitUntilWebElementIsVisible(payment_type_credit_card);
         element.click();
     }
+    public void deselectPromo()throws Throwable {
+        for(WebElement element:promoCheckbox){
+            if(element.getCssValue("border-bottom-color").equals("rgba(16, 44, 66, 1)")){
+                Thread.sleep(2000);
+                element.click();
+            }
+        }
+
+    }
 
     public boolean enterCardDetails(CardDetails cardDetails)throws Throwable {
         WebElement card_num_txtbox = new Utils(driver).waitUntilWebElementIsVisible(card_number_textbox);
@@ -55,6 +66,7 @@ public class PaymentPage {
         card_cvv.click();
         card_cvv.sendKeys(cardDetails.getCvv());
         if (card_details_error.size() == 0) {
+            deselectPromo();
             pay_now_button.click();
             int size = driver.findElements(By.tagName("iframe")).size();
             //new Utils(driver).waitUntilElementIsInvisible(Laod_page);

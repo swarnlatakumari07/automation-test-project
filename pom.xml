@@ -43,7 +43,7 @@
                     </goals>
                     <configuration>
                         <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
-                        <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
+
                     </configuration>
                 </execution>
             </executions>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.11.0</version>
+            <version>3.13.0</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
