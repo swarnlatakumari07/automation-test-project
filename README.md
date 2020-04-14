@@ -49,6 +49,7 @@ A Build success message should appear
  * org.automation.test.runner
  * org.automation.test.stepDifinition
  * resources/feature
+ 
  org.automation.test.page.object contains all the pageObject java classes(here loactors are their used methods
   are written here).
  
