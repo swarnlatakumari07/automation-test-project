@@ -15,7 +15,7 @@ The feature file that has all functionality requirements that the application mu
 - [Project Walkthough](#project-walk-through)
 
 ## Features
-This project contains automation scripts for end to end testcases of midtrans website.
+This project contains automation Framework for end to end testing for web Application
 
 ## Requirements
 
